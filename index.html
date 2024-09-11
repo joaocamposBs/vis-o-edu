@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visão Edu</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Container para o VLibras -->
+    <div vw class="enabled">
+        <div vw-access-button class="active"></div>
+        <div vw-plugin-wrapper>
+            <div class="vw-plugin-top-wrapper"></div>
+        </div>
+    </div>
+
+    <!-- Cabeçalho do Site -->
+    <header class="header">
+        <div class="logo">
+            
+            <img src="logo.png" alt="Logo Visão Edu" class="logo-image">
+            <h1 class="readable"><a href="index.html">Visão Edu</a></h1>
+        </div>
+        <nav class="menu">
+            <ul>
+                <li class="readable"><a href="index.html">Início</a></li>
+                <li class="readable"><a href="contato.html">Contato</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Ferramentas de Zoom -->
+    <div class="zoom-controls">
+        <button id="zoom-in" title="Aumentar Zoom">+</button>
+        <button id="zoom-out" title="Diminuir Zoom">-</button>
+    </div>
+
+    <!-- Conteúdo Principal -->
+    <main class="main-content" id="content">
+        <section class="tools">
+            <h2 class="readable">Ferramentas Educacionais</h2>
+            <div class="tool-item">
+                <img src="calendar-icon.png" alt="Cronograma Semanal">
+                <h3 class="readable">Cronograma Semanal</h3>
+                <p class="readable">Organize suas atividades e mantenha seu estudo em dia com nosso cronograma semanal.</p>
+                <button class="readable cronograma" id="cronograma">Acessar</button>
+            </div>
+            <div class="tool-item">
+                <img src="pomodoro-icon.png" alt="Pomodoro de Estudos">
+                <h3 class="readable">Pomodoro de Estudos</h3>
+                <p class="readable">Utilize a técnica Pomodoro para otimizar seu tempo de estudo e manter o foco.</p>
+                <button class="readable pomodoro" id="pomodoro">Acessar</button>
+            </div>
+            <div class="tool-item">
+                <img src="notes-icon.png" alt="Anotações">
+                <h3 class="readable">Anotações</h3>
+                <p class="readable">Faça anotações rápidas e mantenha suas ideias organizadas durante os estudos.</p>
+                <button class="readable lista" id="lista">Acessar</button>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p class="readable">&copy; 2024 Visão Edu - Todos os direitos reservados.</p>
+    </footer>
+
+    <!-- Script do VLibras -->
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script>
+        new window.VLibras.Widget('https://vlibras.gov.br/app');
+    </script>
+
+    <!-- Script para a Ferramenta de Lupa -->
+    <script>
+
+        document.getElementById('cronograma').addEventListener('click', function() {
+            // Redireciona para a página cronograma.html
+            window.location.href = 'cronograma.html';
+        });
+        document.getElementById('pomodoro').addEventListener('click', function() {
+            // Redireciona para a página cronograma.html
+            window.location.href = 'pomodoro.html';
+        });
+        document.getElementById('lista').addEventListener('click', function() {
+            // Redireciona para a página cronograma.html
+            window.location.href = 'lista.html';
+        });
+        const content = document.getElementById('content');
+        const zoomInButton = document.getElementById('zoom-in');
+        const zoomOutButton = document.getElementById('zoom-out');
+        let zoomLevel = 1;
+
+        // Função para aumentar o zoom
+        zoomInButton.addEventListener('click', () => {
+            zoomLevel += 0.1;
+            content.style.transform = `scale(${zoomLevel})`;
+            content.style.transformOrigin = '0 0';
+        });
+
+        // Função para diminuir o zoom
+        zoomOutButton.addEventListener('click', () => {
+            if (zoomLevel > 0.5) {
+                zoomLevel -= 0.1;
+                content.style.transform = `scale(${zoomLevel})`;
+                content.style.transformOrigin = '0 0';
+            }
+        });
+
+        // Função para ler o conteúdo ao passar o mouse
+        const readableElements = document.querySelectorAll('.readable');
+        let speechSynthesisActive = false; // Controle para evitar múltiplas execuções simultâneas
+
+        readableElements.forEach(element => {
+            element.addEventListener('mouseover', () => {
+                if (!speechSynthesisActive) {
+                    const textToRead = element.innerText;
+                    const utterance = new SpeechSynthesisUtterance(textToRead);
+                    utterance.lang = 'pt-BR';
+                    utterance.onstart = () => {
+                        speechSynthesisActive = true; // Marca como ativo
+                    };
+                    utterance.onend = () => {
+                        speechSynthesisActive = false; // Libera para próxima leitura
+                    };
+                    window.speechSynthesis.speak(utterance);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

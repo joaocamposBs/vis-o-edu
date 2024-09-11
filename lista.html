@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anotações de Estudo - Visão Edu</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Container para o VLibras -->
+    <div vw class="enabled">
+        <div vw-access-button class="active"></div>
+        <div vw-plugin-wrapper>
+            <div class="vw-plugin-top-wrapper"></div>
+        </div>
+    </div>
+
+    <!-- Cabeçalho do Site -->
+    <header class="header">
+        <div class="logo">
+            <img src="logo.png" alt="Logo Visão Edu" class="logo-image">
+            <h1 class="readable"><a href="index.html">Visão Edu</a></h1>
+        </div>
+        <nav class="menu">
+            <ul>
+                <li><a class="readable" href="index.html">Início</a></li>
+                <li><a class="readable" href="contato.html">Contato</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Ferramentas de Zoom -->
+    <div class="zoom-controls">
+        <button id="zoom-in" title="Aumentar Zoom">+</button>
+        <button id="zoom-out" title="Diminuir Zoom">-</button>
+    </div>
+
+    <!-- Conteúdo Principal -->
+    <main class="main-content" id="content">
+        <section class="notes-section">
+            <h2 class="readable">Anotações de Estudo</h2>
+            <div class="notes-container">
+                <textarea id="note-input" placeholder="Digite suas anotações aqui..."></textarea>
+                <button id="save-note" class="save-button readable">Salvar Anotação</button>
+                <div id="notes-list" class="notes-list">
+                    <h3 class="readable">Anotações Salvas</h3>
+                    <!-- As anotações salvas aparecerão aqui -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p class="readable">&copy; 2024 Visão Edu - Todos os direitos reservados.</p>
+    </footer>
+
+    <!-- Script do VLibras -->
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script>
+        new window.VLibras.Widget('https://vlibras.gov.br/app');
+    </script>
+
+    <!-- Script para Ferramenta de Lupa e Leitura de Texto -->
+    <script>
+        const content = document.getElementById('content');
+        const zoomInButton = document.getElementById('zoom-in');
+        const zoomOutButton = document.getElementById('zoom-out');
+        let zoomLevel = 1;
+
+        zoomInButton.addEventListener('click', () => {
+            zoomLevel += 0.1;
+            content.style.transform = `scale(${zoomLevel})`;
+            content.style.transformOrigin = '0 0';
+        });
+
+        zoomOutButton.addEventListener('click', () => {
+            if (zoomLevel > 0.5) {
+                zoomLevel -= 0.1;
+                content.style.transform = `scale(${zoomLevel})`;
+                content.style.transformOrigin = '0 0';
+            }
+        });
+
+                // Função para salvar anotações
+        const saveButton = document.getElementById('save-note');
+        const notesList = document.getElementById('notes-list');
+
+        saveButton.addEventListener('click', () => {
+            const noteInput = document.getElementById('note-input');
+            const noteText = noteInput.value.trim();
+
+            if (noteText) {
+                // Criando um contêiner para cada anotação
+                const noteItem = document.createElement('div');
+                noteItem.className = 'note-item';
+
+                // Parágrafo com o texto da anotação
+                const noteContent = document.createElement('p');
+                noteContent.textContent = noteText;
+
+                // Botão para apagar a anotação
+                const deleteButton = document.createElement('button');
+                deleteButton.textContent = 'Apagar';
+                deleteButton.className = 'delete-button';
+                deleteButton.addEventListener('click', () => {
+                    noteItem.remove();
+                });
+
+                // Adiciona o parágrafo e o botão de apagar no contêiner
+                noteItem.appendChild(noteContent);
+                noteItem.appendChild(deleteButton);
+                notesList.appendChild(noteItem);
+
+                // Limpa o campo de entrada após salvar
+                noteInput.value = '';
+            } else {
+                alert('Por favor, insira uma anotação antes de salvar.');
+            }
+        });
+
+        // Função de leitura ao passar o mouse
+        const readableElements = document.querySelectorAll('.readable');
+        let speechSynthesisActive = false;
+
+        readableElements.forEach(element => {
+            element.addEventListener('mouseover', () => {
+                if (!speechSynthesisActive) {
+                    const textToRead = element.innerText;
+                    const utterance = new SpeechSynthesisUtterance(textToRead);
+                    utterance.lang = 'pt-BR';
+                    utterance.onstart = () => {
+                        speechSynthesisActive = true;
+                    };
+                    utterance.onend = () => {
+                        speechSynthesisActive = false;
+                    };
+                    window.speechSynthesis.speak(utterance);
+                }
+            });
+        });
+        
+    </script>
+</body>
+</html>

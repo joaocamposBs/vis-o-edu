@@ -1,0 +1,378 @@
+/* Estilo geral */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+/* Cabeçalho */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #0057b7;
+    color: #fff;
+}
+
+.footer {
+    background-color: #4a90e2;
+    padding: 10px 20px;
+    text-align: center;
+    color: #fff;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    margin-top: auto;
+}
+
+a{
+    text-decoration:none;
+    color: white;
+}
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo-image {
+    width: 50px; /* Ajuste o tamanho da logo conforme necessário */
+    height: auto;
+}
+
+/* Menu de Navegação */
+.menu ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+.menu a {
+    text-decoration: none;
+    color: #fff;
+    font-weight: bold;
+}
+
+/* Conteúdo Principal */
+.main-content {
+    padding: 20px;
+    text-align: center;
+}
+
+.main-content h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: #0057b7;
+}
+
+.tools {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.tool-item {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 300px;
+    text-align: center;
+}
+
+.tool-item img {
+    width: 80px;
+    margin-bottom: 10px;
+}
+
+.tool-item h3 {
+    font-size: 20px;
+    margin: 10px 0;
+}
+
+.tool-item p {
+    font-size: 14px;
+    color: #666;
+}
+
+.tool-item button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #0057b7;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.tool-item button:hover {
+    background-color: #003d7a;
+}
+
+/* Estilos para os Botões de Zoom */
+.zoom-controls {
+    position: fixed;
+    bottom: 20px;  /* Define a distância do botão em relação ao fundo */
+    right: 20px;   /* Define a distância do botão em relação à direita */
+    display: flex;
+    gap: 10px;
+    z-index: 1000; /* Mantém os botões acima de outros elementos */
+}
+
+.zoom-controls button {
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 50%;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    background-color: #0057b7;
+    color: #fff;
+    transition: background-color 0.3s;
+}
+
+.zoom-controls button:hover {
+    background-color: #003d7a;
+}
+
+/* formulário de contato */
+
+.contact-section {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.contact-form .form-group {
+    margin-bottom: 15px;
+}
+
+.contact-form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.contact-form .submit-button {
+    background-color: #0057b7;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.contact-form .submit-button:hover {
+    background-color: #003d7a;
+}
+
+/* cronograma semanal */
+
+.schedule-section {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.schedule-table {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: space-between;
+}
+
+.day-column {
+    flex: 1;
+    min-width: 120px;
+    max-width: 180px;
+    padding: 10px;
+    background: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+}
+
+.day-column h3 {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.task-list {
+    list-style: none;
+    padding: 0;
+}
+
+.task-item {
+    padding: 8px;
+    margin: 5px 0;
+    background-color: #e3f2fd;
+    border: 1px solid #4a90e2;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.task-item:hover {
+    background-color: #bbdefb;
+}
+
+button {
+    padding: 8px;
+    margin-top: auto;
+    background-color: #4a90e2;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #357ab7;
+}
+
+@media (max-width: 768px) {
+    .schedule-table {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .day-column {
+        max-width: 100%;
+        flex: none;
+    }
+
+    .zoom-controls {
+        right: 10px;
+        bottom: 10px;
+    }
+}
+
+/* pomodoro de estudos */
+
+.pomodoro-section {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.pomodoro-timer {
+    margin-top: 20px;
+}
+
+.timer-display {
+    font-size: 48px;
+    font-weight: bold;
+    color: #4a90e2;
+    margin-bottom: 20px;
+}
+
+.timer-controls {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.timer-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #4a90e2;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.timer-button:hover {
+    background-color: #357ab7;
+}
+
+/* Anotações */
+
+.notes-section {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.notes-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#note-input {
+    width: 100%;
+    height: 100px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    resize: none;
+}
+
+.save-button {
+    padding: 10px 15px;
+    background-color: #4a90e2;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    align-self: flex-start;
+}
+
+.save-button:hover {
+    background-color: #357abd;
+}
+
+.notes-list {
+    margin-top: 20px;
+}
+
+.notes-list p {
+    display: flex;
+    justify-content: space-between;
+    background: #f1f1f1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.delete-button {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.delete-button:hover {
+    background-color: #c0392b;
+}

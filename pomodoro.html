@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pomodoro de Estudos - Visão Edu</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Container para o VLibras -->
+    <div vw class="enabled">
+        <div vw-access-button class="active"></div>
+        <div vw-plugin-wrapper>
+            <div class="vw-plugin-top-wrapper"></div>
+        </div>
+    </div>
+
+    <!-- Cabeçalho do Site -->
+    <header class="header">
+        <div class="logo">
+            <img src="logo.png" alt="Logo Visão Edu" class="logo-image">
+            <h1 class="readable"><a href="index.html">Visão Edu</a></h1>
+        </div>
+        <nav class="menu">
+            <ul>
+                <li><a class="readable" href="index.html">Início</a></li>
+                <li><a class="readable" href="contato.html">Contato</a></li>
+
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Ferramentas de Zoom -->
+    <div class="zoom-controls">
+        <button id="zoom-in" title="Aumentar Zoom">+</button>
+        <button id="zoom-out" title="Diminuir Zoom">-</button>
+    </div>
+
+    <!-- Conteúdo Principal - Pomodoro -->
+    <main class="main-content" id="content">
+        <section class="pomodoro-section">
+            <h2 class="readable">Pomodoro de Estudos</h2>
+            <p class="readable">Use o método Pomodoro para gerenciar seu tempo de estudo e aumentar sua produtividade.</p>
+            
+            <!-- Cronômetro Pomodoro -->
+            <div class="pomodoro-timer">
+                <div class="timer-display">
+                    <span id="minutes">25</span>:<span id="seconds">00</span>
+                </div>
+                <div class="timer-controls">
+                    <button id="start-button" class="timer-button readable">Iniciar</button>
+                    <button id="pause-button" class="timer-button readable">Pausar</button>
+                    <button id="reset-button" class="timer-button readable">Redefinir</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Rodapé -->
+    <footer class="footer">
+        <p class="readable">&copy; 2024 Visão Edu - Todos os direitos reservados.</p>
+    </footer>
+
+    <!-- Script do VLibras -->
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script>
+        new window.VLibras.Widget('https://vlibras.gov.br/app');
+    </script>
+
+    <!-- Script para Ferramenta de Lupa -->
+    <script>
+        const content = document.getElementById('content');
+        const zoomInButton = document.getElementById('zoom-in');
+        const zoomOutButton = document.getElementById('zoom-out');
+        let zoomLevel = 1;
+
+        // Função para aumentar o zoom
+        zoomInButton.addEventListener('click', () => {
+            zoomLevel += 0.1;
+            content.style.transform = `scale(${zoomLevel})`;
+            content.style.transformOrigin = '0 0';
+        });
+
+        // Função para diminuir o zoom
+        zoomOutButton.addEventListener('click', () => {
+            if (zoomLevel > 0.5) {
+                zoomLevel -= 0.1;
+                content.style.transform = `scale(${zoomLevel})`;
+                content.style.transformOrigin = '0 0';
+            }
+        });
+
+        // Função para ler o conteúdo ao passar o mouse
+        const readableElements = document.querySelectorAll('.readable');
+        let speechSynthesisActive = false;
+
+        readableElements.forEach(element => {
+            element.addEventListener('mouseover', () => {
+                if (!speechSynthesisActive) {
+                    const textToRead = element.innerText;
+                    const utterance = new SpeechSynthesisUtterance(textToRead);
+                    utterance.lang = 'pt-BR';
+                    utterance.onstart = () => {
+                        speechSynthesisActive = true;
+                    };
+                    utterance.onend = () => {
+                        speechSynthesisActive = false;
+                    };
+                    window.speechSynthesis.speak(utterance);
+                }
+            });
+        });
+    </script>
+
+    <!-- Script para o Cronômetro Pomodoro -->
+    <script>
+        let timer;
+        let minutes = 25;
+        let seconds = 0;
+        let isRunning = false;
+
+        const minutesDisplay = document.getElementById('minutes');
+        const secondsDisplay = document.getElementById('seconds');
+        const startButton = document.getElementById('start-button');
+        const pauseButton = document.getElementById('pause-button');
+        const resetButton = document.getElementById('reset-button');
+
+        // Função para atualizar o cronômetro
+        function updateTimer() {
+            seconds--;
+            if (seconds < 0) {
+                seconds = 59;
+                minutes--;
+            }
+
+            if (minutes < 0) {
+                clearInterval(timer);
+                alert('Sessão concluída! Hora de uma pausa.');
+                resetTimer();
+            }
+
+            minutesDisplay.textContent = String(minutes).padStart(2, '0');
+            secondsDisplay.textContent = String(seconds).padStart(2, '0');
+        }
+
+        // Função para iniciar o cronômetro
+        startButton.addEventListener('click', () => {
+            if (!isRunning) {
+                isRunning = true;
+                timer = setInterval(updateTimer, 1000);
+            }
+        });
+
+        // Função para pausar o cronômetro
+        pauseButton.addEventListener('click', () => {
+            clearInterval(timer);
+            isRunning = false;
+        });
+
+        // Função para redefinir o cronômetro
+        resetButton.addEventListener('click', resetTimer);
+
+        function resetTimer() {
+            clearInterval(timer);
+            minutes = 25;
+            seconds = 0;
+            isRunning = false;
+            minutesDisplay.textContent = '25';
+            secondsDisplay.textContent = '00';
+        }
+    </script>
+</body>
+</html>
